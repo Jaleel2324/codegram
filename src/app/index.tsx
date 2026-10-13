@@ -1,39 +1,31 @@
 
 import {
-  ScrollView,
+  FlatList,
   StyleSheet,
   Text,
   View,
 } from "react-native";
 
 import Post from "../components/Post";
+import { posts } from "../data/posts";
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Codegram</Text>
 
-      <ScrollView
+      <FlatList
+        data={posts}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Post
+            username={item.username}
+            caption={item.caption}
+            initialLikes={item.initialLikes}
+          />
+        )}
         showsVerticalScrollIndicator={false}
-      >
-        <Post
-          username="jaleel"
-          caption="Building my first mobile app!"
-          initialLikes={12}
-        />
-
-        <Post
-          username="developer"
-          caption="React Native is powerful!"
-          initialLikes={48}
-        />
-
-        <Post
-          username="codegram"
-          caption="Our social media journey begins."
-          initialLikes={103}
-        />
-      </ScrollView>
+      />
     </View>
   );
 }
